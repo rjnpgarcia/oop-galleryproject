@@ -1,4 +1,5 @@
 <?php
 
 // Database
-include "db.php";
+include "config.php";
+include "database.php";

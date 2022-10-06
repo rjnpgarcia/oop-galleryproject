@@ -18,6 +18,13 @@
                 <h1 class="page-header">
                     Welcome to Admin
                     <small>Subheading</small>
+                    <?php
+                    $sql = "SELECT * FROM users WHERE id=1";
+                    $return = $database->query($sql);
+                    $user = mysqli_fetch_array($return);
+                    echo $user['username'];
+
+                    ?>
                 </h1>
                 <ol class="breadcrumb">
                     <li>
