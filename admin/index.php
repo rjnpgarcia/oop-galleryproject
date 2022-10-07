@@ -19,11 +19,8 @@
                     Welcome to Admin
                     <small>Subheading</small>
                     <?php
-                    $user = User::findUserById(1);
-                    echo $user['firstname'];
-
-
-
+                    $users = User::findUserById(2);
+                    print_r($users);
                     ?>
                 </h1>
                 <ol class="breadcrumb">
