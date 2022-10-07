@@ -2,4 +2,5 @@
 
 // Database
 include "config.php";
-include "database.php";
+include "class_db.php";
+include "class_user.php";

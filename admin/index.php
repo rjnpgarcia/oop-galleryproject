@@ -19,10 +19,10 @@
                     Welcome to Admin
                     <small>Subheading</small>
                     <?php
-                    $sql = "SELECT * FROM users WHERE id=1";
-                    $return = $database->query($sql);
-                    $user = mysqli_fetch_array($return);
-                    echo $user['username'];
+                    $user = User::findUserById(1);
+                    echo $user['firstname'];
+
+
 
                     ?>
                 </h1>
