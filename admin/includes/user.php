@@ -54,4 +54,13 @@ class User
         // OR
         // return !empty($foundUser) ? array_shift($foundUser) : false;
     }
+
+    // To verify user by username and password
+    public static function verify_user($username, $password)
+    {
+        $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password' LIMIT 1";
+        $foundUser = self::findThisQuery($sql);
+        return !empty($foundUser) ? array_shift($foundUser) : false;
+    }
 }
+$user = new User();

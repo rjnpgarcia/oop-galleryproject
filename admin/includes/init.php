@@ -1,6 +1,11 @@
 <?php
+// Functions
+require_once "functions.php";
 
 // Database
-include "config.php";
-include "class_db.php";
-include "class_user.php";
+require_once "config.php";
+
+// Classes
+require_once "database.php";
+require_once "user.php";
+require_once "session.php";

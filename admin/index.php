@@ -1,10 +1,16 @@
-<?php include("includes/header.php"); ?>
+<?php require_once("includes/header.php");
 
+// Control access to ADMIN page
+if (!$session->isLoggedIn()) {
+    redirect("login.php");
+}
+
+?>
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <?php include "includes/topnav.php"; ?>
+    <?php require_once "includes/topnav.php"; ?>
     <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-    <?php include "includes/sidenav.php"; ?>
+    <?php require_once "includes/sidenav.php"; ?>
     <!-- /.navbar-collapse -->
 </nav>
 

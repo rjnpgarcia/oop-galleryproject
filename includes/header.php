@@ -1,6 +1,8 @@
 <?php
 ob_start();
-include "admin/includes/init.php";
+require_once "admin/includes/init.php";
+
+
 ?>
 
 <!DOCTYPE html>
