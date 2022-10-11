@@ -5,12 +5,35 @@ class Session
     // Properties
     private $signed_in = false;
     public $user_id;
+    public $message;
+    public $test;
 
     // Start Sessions
     function __construct()
     {
         session_start();
         $this->checkLoggedIn();
+        $this->checkMessage();
+    }
+
+    // Feedback Message
+    public function message($msg)
+    {
+        if (!empty($msg)) {
+            $_SESSION['message'] = $msg;
+        } else {
+            return $this->message;
+        }
+    }
+
+    private function checkMessage()
+    {
+        if (isset($_SESSION['message'])) {
+            $this->message = $_SESSION['message'];
+            unset($_SESSION['message']);
+        } else {
+            $this->message = "";
+        }
     }
 
     // Getter function
@@ -36,10 +59,10 @@ class Session
         $this->signed_in = false;
     }
 
-    //  To Check if user is logged in
+    // To Check if user is logged in
     private function checkLoggedIn()
     {
-        if (isset($_SESSION['user_di'])) {
+        if (isset($_SESSION['user_id'])) {
             $this->user_id = $_SESSION['user_id'];
             $this->signed_in = true;
         } else {

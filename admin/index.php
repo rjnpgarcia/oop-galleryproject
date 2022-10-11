@@ -24,10 +24,6 @@ if (!$session->isLoggedIn()) {
                 <h1 class="page-header">
                     Welcome to Admin
                     <small>Subheading</small>
-                    <?php
-                    $users = User::findUserById(2);
-                    print_r($users);
-                    ?>
                 </h1>
                 <ol class="breadcrumb">
                     <li>
