@@ -25,6 +25,15 @@ if (!$session->isLoggedIn()) {
                     Welcome to Admin
                     <small>Subheading</small>
                 </h1>
+                <?php
+                // $user = User::findUserById(4);
+                // $user->lastname = "Garcia";
+                // $user->firstname = "rapido";
+                // $user->username = "turon";
+                // $user->password = "12345";
+
+                // $user->updateUser();
+                ?>
                 <ol class="breadcrumb">
                     <li>
                         <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>

@@ -40,6 +40,12 @@ class Database
     {
         return $this->connection->real_escape_string($string);
     }
+
+    // To pull new created user id
+    public function insertId()
+    {
+        return mysqli_insert_id($this->connection);
+    }
 }
 
 $database = new Database();

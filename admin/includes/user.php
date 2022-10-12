@@ -62,5 +62,39 @@ class User
         $foundUser = self::findThisQuery($sql);
         return !empty($foundUser) ? array_shift($foundUser) : false;
     }
-}
+
+    //  CREATE User
+    public function createUser()
+    {
+        global $database;
+        $username = $database->escape($this->username);
+        $password = $database->escape($this->password);
+        $firstname = $database->escape($this->firstname);
+        $lastname = $database->escape($this->lastname);
+        $sql = "INSERT INTO users (username, password, firstname, lastname) VALUES ('$username', '$password', '$firstname', '$lastname')";
+
+        if ($database->query($sql)) {
+            $this->id = $database->insertId();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // UPDATE User
+    public function updateUser()
+    {
+        global $database;
+        $username = $database->escape($this->username);
+        $password = $database->escape($this->password);
+        $firstname = $database->escape($this->firstname);
+        $lastname = $database->escape($this->lastname);
+        $user_id = $database->escape($this->id);
+
+        $sql = "UPDATE users SET username = '$username', password = '$password', firstname = '$firstname', lastname = '$lastname' WHERE id = $user_id";
+        $database->query($sql);
+
+        return mysqli_affected_rows($database->connection) === 1 ? true : false;
+    }
+} //End of USER Class
 $user = new User();
