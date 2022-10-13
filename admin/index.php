@@ -26,13 +26,36 @@ if (!$session->isLoggedIn()) {
                     <small>Subheading</small>
                 </h1>
                 <?php
-                // $user = User::findUserById(4);
+                // $user = new User();
+                // $user->username = "turoners";
+                // $user->password = "123";
+                // $user->firstname = "Nathaniel";
                 // $user->lastname = "Garcia";
-                // $user->firstname = "rapido";
-                // $user->username = "turon";
-                // $user->password = "12345";
+                // $user->create();
 
-                // $user->updateUser();
+                // $user = User::findUserById(13);
+                // $user->deleteUser();
+
+                // $user = User::findUserById(13);
+                // $user->lastname = "Blaire";
+                // $user->save();
+
+                // $user = new User();
+                // $user->username = "turanssss";
+                // $user->password = "123455555";
+                // $user->firstname = "Nathaniel";
+                // $user->lastname = "Joseph";
+                // $user->createUser();
+                // $user = new User();
+                // $properties = $user->properties($user);
+                // // var_dump($properties);
+                // $keys = array_keys($properties);
+                // // var_dump($keys);
+                // $implode = implode("','", $keys);
+                // var_dump($implode);
+
+
+
                 ?>
                 <ol class="breadcrumb">
                     <li>

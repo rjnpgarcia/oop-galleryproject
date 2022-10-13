@@ -3,6 +3,8 @@
 class User
 {
     // Properties
+    protected static $db_table = "users";
+    protected static $db_table_fields = ['username', 'password', 'firstname', 'lastname'];
     public $id;
     public $username;
     public $password;
@@ -63,15 +65,27 @@ class User
         return !empty($foundUser) ? array_shift($foundUser) : false;
     }
 
-    //  CREATE User
-    public function createUser()
+    // Get Table Properties
+    public function properties()
+    {
+        $properties = [];
+        foreach (self::$db_table_fields as $db_field) {
+            if (property_exists($this, $db_field)) {
+                $properties[$db_field] = $this->$db_field;
+            }
+        }
+        return $properties;
+    }
+
+    //  CREATE
+    public function create()
     {
         global $database;
-        $username = $database->escape($this->username);
-        $password = $database->escape($this->password);
-        $firstname = $database->escape($this->firstname);
-        $lastname = $database->escape($this->lastname);
-        $sql = "INSERT INTO users (username, password, firstname, lastname) VALUES ('$username', '$password', '$firstname', '$lastname')";
+        $properties = $this->properties();
+        $columns = implode(",", array_keys($properties));
+        $values = implode("','", array_values($properties));
+        $table = self::$db_table;
+        $sql = "INSERT INTO $table ($columns) VALUES ('$values')";
 
         if ($database->query($sql)) {
             $this->id = $database->insertId();
@@ -81,20 +95,38 @@ class User
         }
     }
 
-    // UPDATE User
-    public function updateUser()
+    // UPDATE
+    public function update()
     {
         global $database;
-        $username = $database->escape($this->username);
-        $password = $database->escape($this->password);
-        $firstname = $database->escape($this->firstname);
-        $lastname = $database->escape($this->lastname);
-        $user_id = $database->escape($this->id);
+        $properties = $this->properties();
+        $propertyPair = [];
+        foreach ($properties as $key => $values) {
+            $propertyPair[] = "$key = '$values'";
+        }
 
-        $sql = "UPDATE users SET username = '$username', password = '$password', firstname = '$firstname', lastname = '$lastname' WHERE id = $user_id";
+        $updateSetValues = implode(", ", $propertyPair);
+        $sql = "UPDATE users SET $updateSetValues WHERE id=$this->id";
+
         $database->query($sql);
-
         return mysqli_affected_rows($database->connection) === 1 ? true : false;
+    }
+
+    //  DELETE
+    public function delete()
+    {
+        global $database;
+        $user_id = $database->escape($this->id);
+        $table = self::$db_table;
+        $sql = "DELETE FROM $table WHERE id=$user_id LIMIT 1";
+        $database->query($sql);
+        return mysqli_affected_rows($database->connection) === 1 ? true : false;
+    }
+
+    // Abstaction for Create/Update Method
+    public function save()
+    {
+        return isset($this->id) ? $this->update() : $this->create();
     }
 } //End of USER Class
 $user = new User();
