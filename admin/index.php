@@ -1,6 +1,6 @@
 <?php require_once("includes/header.php");
 
-// Control access to ADMIN page
+// Control access to ADMIN
 if (!$session->isLoggedIn()) {
     redirect("login.php");
 }

@@ -13,7 +13,7 @@ class Photo extends Db_object
 
     // Properties for Uploads and Errors
     public $tmp_path; // Temporary path
-    public $upload_directory;
+    public $upload_directory = "images";
     public $errors = [];
     public $uploadErrorsArray = [
         UPLOAD_ERR_OK => "There is no error",
@@ -41,6 +41,12 @@ class Photo extends Db_object
             $this->type = $file['type'];
             $this->size = $file['size'];
         }
+    }
+
+    // Uploaded picture path
+    public function picturePath()
+    {
+        return $this->upload_directory . DS . $this->filename;
     }
 
     // Create/Update Photos

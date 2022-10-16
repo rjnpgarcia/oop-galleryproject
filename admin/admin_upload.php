@@ -1,5 +1,26 @@
-<?php include("includes/header.php"); ?>
+<?php include("includes/header.php");
 
+// Control access to ADMIN
+if (!$session->isLoggedIn()) {
+    redirect("login.php");
+}
+
+// Uploading Files to Database and admin/images folder
+$errorMessage = '';
+$successMessage = '';
+if (isset($_POST['upload'])) {
+    $photos = new Photo();
+    $photos->title = $_POST['title'];
+    $photos->set_file($_FILES['file_upload']);
+    if ($photos->savePhoto()) {
+        $successMessage = "Photo uploaded succesfully";
+    } else {
+        $errorMessage = join("<br>", $photos->errors);
+    }
+}
+
+
+?>
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <?php include "includes/topnav.php"; ?>
@@ -19,14 +40,22 @@
                     Upload
                     <small>Subheading</small>
                 </h1>
-                <ol class="breadcrumb">
-                    <li>
-                        <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
-                    </li>
-                    <li class="active">
-                        <i class="fa fa-file"></i> Blank Page
-                    </li>
-                </ol>
+                <div class="col-md-6">
+                    <h5 class="<?php echo !empty($successMessage) ? 'text-success' : 'text-danger'; ?>"><?php echo !empty($successMessage) ? $successMessage : $errorMessage; ?></h5>
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="">Title</label>
+                            <input type="text" name="title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Upload Picture</label>
+                            <input type="file" name="file_upload">
+                        </div>
+                        <div>
+                            <input type="submit" name="upload" value="Upload" class="btn btn-info">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <!-- /.row -->
