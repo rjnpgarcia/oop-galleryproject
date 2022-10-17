@@ -3,8 +3,8 @@
 class Db_object
 {
     //  Properties
-    private $db_table;
-    private $db_table_fields;
+    private static $db_table;
+    private static $db_table_fields;
 
     // Read Query
     public static function findThisQuery($sql)
@@ -42,6 +42,16 @@ class Db_object
     {
         $table = static::$db_table;
         return static::findThisQuery("SELECT * FROM $table");
+    }
+
+    // Read by ID
+    public static function findById($id)
+    {
+        $table = static::$db_table;
+        $result = self::findThisQuery("SELECT * FROM $table WHERE id=$id LIMIT 1");
+        return $result[0];
+        // OR
+        // return !empty($foundUser) ? array_shift($foundUser) : false;
     }
 
     // Get Table Properties
@@ -108,9 +118,9 @@ class Db_object
     public function delete()
     {
         global $database;
-        $user_id = $database->escape($this->id);
+        $id = $database->escape($this->id);
         $table = static::$db_table;
-        $sql = "DELETE FROM $table WHERE id=$user_id LIMIT 1";
+        $sql = "DELETE FROM $table WHERE id=$id LIMIT 1";
         $database->query($sql);
         return mysqli_affected_rows($database->connection) === 1 ? true : false;
     }

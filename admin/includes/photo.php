@@ -3,9 +3,11 @@ class Photo extends Db_object
 {
     // Properties for Database Fields
     protected static $db_table = "photos";
-    protected static $db_table_fields = ['photo_id', 'title', 'description', 'filename', 'type', 'size'];
-    public $photo_id;
+    protected static $db_table_fields = ['title', 'caption', 'alternate_text', 'description', 'filename', 'type', 'size'];
+    public $id;
     public $title;
+    public $caption;
+    public $alternate_text;
     public $description;
     public $filename;
     public $type;
@@ -52,7 +54,7 @@ class Photo extends Db_object
     // Create/Update Photos
     public function savePhoto()
     {
-        if ($this->photo_id) {
+        if ($this->id) {
             $this->update();
         } else {
             if (!empty($this->errors)) {
@@ -79,6 +81,17 @@ class Photo extends Db_object
                 $this->errors[] = "File cannot be saved in directory";
                 return false;
             }
+        }
+    }
+
+    // Delete Photo in database and images folder
+    public function deletePhoto()
+    {
+        if ($this->delete()) {
+            $targetPath = SITE_ROOT . DS . 'admin' . DS . $this->picturePath();
+            return unlink($targetPath) ? true : false;
+        } else {
+            return false;
         }
     }
 } // End of Photo Class

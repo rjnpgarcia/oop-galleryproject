@@ -26,7 +26,7 @@ if (!$session->isLoggedIn()) {
                     <small>Subheading</small>
                 </h1>
                 <?php
-                echo INCLUDES_PATH;
+
 
 
 
