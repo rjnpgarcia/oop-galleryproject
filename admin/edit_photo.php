@@ -20,7 +20,7 @@ if (empty($photo_id)) {
             $photo->description = $_POST['description'];
 
             $photo->save();
-            $updateMessage = "Updated Successfully!";
+            $photo->notification = "Updated Successfully!";
         }
     }
 }
@@ -51,7 +51,7 @@ if (empty($photo_id)) {
                 </h1>
                 <form action="" method="post">
                     <div class="col-md-8">
-                        <h5 class="text-success text-center"><?php echo !empty($updateMessage) ? $updateMessage : ""; ?></h5>
+                        <h5 class="text-success text-center"><?php $photo->statusNotification(); ?></h5>
                         <div class="form-group">
                             <label for="">Title</label>
                             <input type="text" name="title" placeholder="Create your title" class="form-control" value="<?php echo $photo->title; ?>">

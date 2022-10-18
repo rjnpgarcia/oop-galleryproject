@@ -7,11 +7,12 @@ class Db_object
     private static $db_table_fields;
     private static $upload_directory = "images";
     protected $image_placeholder = "placeholder/placeholder1.png";
+    public $notification;
 
     // Properties for Uploads and Errors
-    protected $tmp_path; // Temporary path
-    protected $errors = [];
-    protected $uploadErrorsArray = [
+    public $tmp_path; // Temporary path
+    public $errors = [];
+    public $uploadErrorsArray = [
         UPLOAD_ERR_OK => "There is no error",
         UPLOAD_ERR_INI_SIZE => "The uploaded file exceeds the upload_max_filesize directive",
         UPLOAD_ERR_FORM_SIZE => "The uploaded file exceeds the max_file_size",
@@ -58,6 +59,13 @@ class Db_object
     {
         $table = static::$db_table;
         return static::findThisQuery("SELECT * FROM $table");
+    }
+
+    // Read ALL user columns (descending order)
+    public static function findAllDescOrder()
+    {
+        $table = static::$db_table;
+        return static::findThisQuery("SELECT * FROM $table ORDER BY id DESC");
     }
 
     // Read by ID
@@ -175,35 +183,31 @@ class Db_object
     }
 
     // Create/Update Photos
-    public function savePhoto()
+    public function saveDataPhoto()
     {
-        if ($this->id) {
-            $this->update();
+        if (!empty($this->errors)) {
+            return false;
+        }
+
+        if (empty($this->filename) || empty($this->tmp_path)) {
+            $this->errors[] = "The file was not available";
+            return false;
+        }
+        $targetPath = SITE_ROOT . DS . 'admin' . DS . static::$upload_directory . DS . $this->filename;
+
+        if (file_exists($targetPath)) {
+            $this->errors[] = "The filename $this->filename already exists";
+            return false;
+        }
+
+        if (move_uploaded_file($this->tmp_path, $targetPath)) {
+            if ($this->save()) {
+                unset($this->tmp_path);
+                return true;
+            }
         } else {
-            if (!empty($this->errors)) {
-                return false;
-            }
-
-            if (empty($this->filename) || empty($this->tmp_path)) {
-                $this->errors[] = "The file was not available";
-                return false;
-            }
-            $targetPath = SITE_ROOT . DS . 'admin' . DS . static::$upload_directory . DS . $this->filename;
-
-            if (file_exists($targetPath)) {
-                $this->errors[] = "The filename $this->filename already exists";
-                return false;
-            }
-
-            if (move_uploaded_file($this->tmp_path, $targetPath)) {
-                if ($this->create()) {
-                    unset($this->tmp_path);
-                    return true;
-                }
-            } else {
-                $this->errors[] = "File cannot be saved in directory";
-                return false;
-            }
+            $this->errors[] = "File cannot be saved in directory";
+            return false;
         }
     }
 
@@ -211,10 +215,17 @@ class Db_object
     public function deletePhoto()
     {
         if ($this->delete()) {
-            $targetPath = SITE_ROOT . DS . 'admin' . DS . $this->picturePath();
+            $targetPath = SITE_ROOT . DS . 'admin' . DS . static::$upload_directory . DS . $this->filename;
             return unlink($targetPath) ? true : false;
         } else {
             return false;
         }
+    }
+
+
+    // Status notification
+    public function statusNotification()
+    {
+        echo !empty($this->notification) ? $this->notification : "";
     }
 }

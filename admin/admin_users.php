@@ -6,7 +6,7 @@ if (!$session->isLoggedIn()) {
 }
 
 // Read Users Database
-$users = User::findAll();
+$users = User::findAllDescOrder();
 
 
 
@@ -52,7 +52,7 @@ $users = User::findAll();
                                     <td><?php echo "$user->username"; ?></td>
                                     <td><?php echo "$user->firstname"; ?></td>
                                     <td><?php echo "$user->lastname"; ?></td>
-                                    <td><a class="btn-sm btn-info" href="">Edit</a><a class="btn-sm btn-danger" href="delete_users.php?id=<?php echo $user->id; ?>" onclick="return confirm('Are you sure you want to delete USER?')">Delete</a></td>
+                                    <td><a class="btn-sm btn-info" href="edit_users.php?id=<?php echo $user->id; ?>">Edit</a><a class="btn-sm btn-danger" href="delete_users.php?id=<?php echo $user->id; ?>" onclick="return confirm('Are you sure you want to delete USER?')">Delete</a></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

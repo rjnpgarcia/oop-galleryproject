@@ -14,4 +14,5 @@ class Photo extends Db_object
     public $size;
     protected static $upload_directory = "images";
     protected $image_placeholder = "placeholder/placeholder1.png";
+    public $notification;
 } // End of Photo Class

@@ -6,7 +6,7 @@ if (!$session->isLoggedIn()) {
 }
 
 // Read Photo Database
-$photos = Photo::findAll();
+$photos = Photo::findAllDescOrder();
 
 
 

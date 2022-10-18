@@ -6,16 +6,15 @@ if (!$session->isLoggedIn()) {
 }
 
 // Uploading Files to Database and admin/images folder
-$errorMessage = '';
-$successMessage = '';
+$photos = new Photo();
+$photos->notification = '';
 if (isset($_POST['upload'])) {
-    $photos = new Photo();
     $photos->title = $_POST['title'];
     $photos->set_file($_FILES['file_upload']);
-    if ($photos->savePhoto()) {
-        $successMessage = "Photo uploaded succesfully";
+    if ($photos->saveDataPhoto()) {
+        $photos->notification = "Photo uploaded succesfully";
     } else {
-        $errorMessage = join("<br>", $photos->errors);
+        $photos->notification = join("<br>", $photos->errors);
     }
 }
 
@@ -41,7 +40,7 @@ if (isset($_POST['upload'])) {
                     <small>Subheading</small>
                 </h1>
                 <div class="col-md-6">
-                    <h5 class="<?php echo !empty($successMessage) ? 'text-success' : 'text-danger'; ?>"><?php echo !empty($successMessage) ? $successMessage : $errorMessage; ?></h5>
+                    <h5 class="<?php echo empty($photos->errors) ? 'text-success' : 'text-danger'; ?>"><?php echo $photos->statusNotification(); ?></h5>
                     <form action="" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="">Title</label>

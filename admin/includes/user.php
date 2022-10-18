@@ -13,6 +13,7 @@ class User extends Db_object
     public $filename;
     protected static $upload_directory = "images/user_images";
     protected $image_placeholder = "placeholder/placeholder1.png";
+    public $notification;
 
     // To verify user by username and password
     public static function verify_user($username, $password)
