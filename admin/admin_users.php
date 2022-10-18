@@ -48,7 +48,7 @@ $users = User::findAll();
                             <?php foreach ($users as $user) : ?>
                                 <tr>
                                     <td><?php echo "$user->id"; ?></td>
-                                    <td><img class="img-thumbnail" width="60" src="<?php echo $user->imagePath(); ?>" alt=""></td>
+                                    <td><img class="img-thumbnail" width="60" src="<?php echo $user->picturePath(); ?>" alt=""></td>
                                     <td><?php echo "$user->username"; ?></td>
                                     <td><?php echo "$user->firstname"; ?></td>
                                     <td><?php echo "$user->lastname"; ?></td>

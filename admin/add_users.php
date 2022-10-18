@@ -13,7 +13,8 @@ if (isset($_POST['add_user'])) {
     $user->firstname = $_POST['firstname'];
     $user->lastname = $_POST['lastname'];
     $user->password = $_POST['password'];
-
+    $user->set_file($_FILES['filename']);
+    $user->savePhoto();
     $user->save();
     $addedUserMessage = "User successfully added!";
 }
@@ -42,12 +43,12 @@ if (isset($_POST['add_user'])) {
                     Add User
                     <small>Subheading</small>
                 </h1>
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     <div class="col-md-6 col-md-offset-3">
                         <h5 class="text-success text-center"><?php echo !empty($addedUserMessage) ? $addedUserMessage : ""; ?></h5>
                         <div class="form-group">
                             <label for="">Profile Picture</label>
-                            <input type="file" name="user_image">
+                            <input type="file" name="filename">
                         </div>
                         <div class="form-group">
                             <label for="">Username</label>

@@ -13,6 +13,7 @@ if (empty($_GET['id'])) {
 // Delete User
 $users = User::findById($database->escape($_GET['id']));
 if ($users) {
+    $users->deletePhoto();
     $users->delete();
     redirect("admin_users.php");
 } else {
