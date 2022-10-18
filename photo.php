@@ -6,11 +6,20 @@ require_once "admin/includes/init.php";
 //     redirect("index.php");
 // }
 
+$photo = Comment::findById($_GET['id']);
+
 if (isset($_POST['submitComment'])) {
-    echo "Hello World";
+    $author = trim($database->escape($_POST['author']));
+    $content = trim($database->escape($_POST['content']));
+    $new_comment = Comment::createComment($photo->id, $author, $content);
+    if ($new_comment && $new_comment->save()) {
+        redirect("photo.php?id=$photo->id");
+    } else {
+        $new_comment->notification = "Problem posting comment";
+    }
 }
 
-
+Comment::findComments($photo->id);
 
 ?>
 <!DOCTYPE html>

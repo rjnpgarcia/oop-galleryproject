@@ -26,4 +26,10 @@ class Comment extends Db_object
             return false;
         }
     }
+
+    // Pulling comments by photo id
+    public static function findComments($photo_id)
+    {
+        return static::findThisQuery("SELECT * FROM comments WHERE photo_id = $photo_id ORDER BY id DESC");
+    }
 } // End of Comment Class
