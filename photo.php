@@ -1,3 +1,18 @@
+<?php
+require_once "admin/includes/init.php";
+
+// Control access
+// if (empty($_GET['id'])) {
+//     redirect("index.php");
+// }
+
+if (isset($_POST['submitComment'])) {
+    echo "Hello World";
+}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,11 +119,16 @@
                 <!-- Comments Form -->
                 <div class="well">
                     <h4>Leave a Comment:</h4>
-                    <form role="form">
+                    <form role="form" method="post">
                         <div class="form-group">
-                            <textarea class="form-control" rows="3"></textarea>
+                            <label for="">Author</label>
+                            <input type="text" name="author" class="form-control">
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="form-group">
+                            <label for="">Comment</label>
+                            <textarea class="form-control" rows="3" name="content"></textarea>
+                        </div>
+                        <button type="submit" name="submitComment" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
 
@@ -168,7 +188,7 @@
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
                                 <span class="glyphicon glyphicon-search"></span>
-                        </button>
+                            </button>
                         </span>
                     </div>
                     <!-- /.input-group -->
