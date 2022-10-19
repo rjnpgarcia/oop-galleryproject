@@ -6,7 +6,7 @@ if (!$session->isLoggedIn()) {
 }
 
 // Control access to delete page
-if (empty($database->escape($_GET['id']))) {
+if (empty($_GET['id'])) {
     redirect("admin_photos.php");
 }
 

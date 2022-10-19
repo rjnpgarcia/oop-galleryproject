@@ -32,4 +32,11 @@ class Comment extends Db_object
     {
         return static::findThisQuery("SELECT * FROM comments WHERE photo_id = $photo_id ORDER BY id DESC");
     }
+
+    // Comment Count
+    public static function commentCount($photo_id)
+    {
+        $comments = self::findComments($photo_id);
+        return count($comments);
+    }
 } // End of Comment Class

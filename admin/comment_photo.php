@@ -5,8 +5,12 @@ if (!$session->isLoggedIn()) {
     redirect("login.php");
 }
 
-// Read Comments Database
-$comments = Comment::findAllDescOrder();
+if (empty($database->escape($_GET['id']))) {
+    redirect("admin_photos.php");
+}
+
+// Read Comments Database for specific photo
+$comments = Comment::findComments($database->escape($_GET['id']));
 
 
 
@@ -49,7 +53,7 @@ $comments = Comment::findAllDescOrder();
                                     <td><?php echo "$comment->photo_id"; ?></td>
                                     <td><?php echo "$comment->author"; ?></td>
                                     <td><?php echo "$comment->content"; ?></td>
-                                    <td><a class="btn-sm btn-danger" href="delete_comment.php?id=<?php echo $comment->id; ?>" onclick="return confirm('Are you sure you want to delete COMMENT?')">Delete</a></td>
+                                    <td><a class="btn-sm btn-danger" href="delete_comment_photo.php?id=<?php echo $comment->id; ?>" onclick="return confirm('Are you sure you want to delete COMMENT?')">Delete</a></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

@@ -32,13 +32,3 @@ require_once "admin/includes/init.php";
     <![endif]-->
 
 </head>
-
-<body>
-
-
-
-    <!-- Navigation -->
-    <?php include("navigation.php"); ?>
-
-    <!-- Page Content -->
-    <div class="container">

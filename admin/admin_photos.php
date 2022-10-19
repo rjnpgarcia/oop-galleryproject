@@ -40,6 +40,7 @@ $photos = Photo::findAllDescOrder();
                                 <th>Title</th>
                                 <th>Filename</th>
                                 <th>Size</th>
+                                <th>Comments</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,7 +48,8 @@ $photos = Photo::findAllDescOrder();
                                 <tr>
                                     <td><img class="img-thumbnail" width="200px" src="<?php echo $photo->picturePath(); ?>" alt="">
                                         <div class="picture_links">
-                                            <a href="" class="btn-sm btn-info">View</a>
+                                            <a href="../photo.php?id=<?php echo $photo->id; ?>" class="btn-sm btn-primary">View</a>
+                                            <a href="comment_photo.php?id=<?php echo $photo->id; ?>" class="btn-sm btn-info">Comments</a>
                                             <a href="edit_photo.php?id=<?php echo $photo->id; ?>" class="btn-sm btn-warning">Edit</a>
                                             <a href="delete_photo.php?id=<?php echo $photo->id; ?>" class="btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
                                         </div>
@@ -56,6 +58,7 @@ $photos = Photo::findAllDescOrder();
                                     <td><?php echo "$photo->title"; ?></td>
                                     <td><?php echo "$photo->filename"; ?></td>
                                     <td><?php echo "$photo->size"; ?></td>
+                                    <td><?php echo Comment::commentCount($photo->id); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
