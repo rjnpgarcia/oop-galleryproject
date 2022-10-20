@@ -10,7 +10,12 @@ require_once("includes/header.php");
 $user = new User();
 
 // Read Photo by id
-$photo = Photo::findById($_GET['id']);
+$photo = Photo::findById($database->escape($_GET['id']));
+
+// View Count
+if ($photo) {
+    $photo->viewCounter($database->escape($_GET['id']));
+}
 
 // Create Comment
 if (isset($_POST['submitComment'])) {

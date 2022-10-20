@@ -5,8 +5,8 @@ class Session
     // Properties
     private $signed_in = false;
     public $user_id;
+    public $count;
     public $message;
-    public $test;
 
     // Start Sessions
     function __construct()
@@ -14,6 +14,7 @@ class Session
         session_start();
         $this->checkLoggedIn();
         $this->checkMessage();
+        // $this->pageViewCount();
     }
 
     // Feedback Message
@@ -70,6 +71,16 @@ class Session
             $this->signed_in = false;
         }
     }
+
+    // Page View Count
+    // public function pageViewCount()
+    // {
+    //     if (isset($_SESSION['count'])) {
+    //         return $this->count = $_SESSION['count']++;
+    //     } else {
+    //         return $_SESSION['count'] = 1;
+    //     }
+    // }
 }
 
 $session = new Session();

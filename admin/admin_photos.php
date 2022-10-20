@@ -41,6 +41,7 @@ $photos = Photo::findAllDescOrder();
                                 <th>Filename</th>
                                 <th>Size</th>
                                 <th>Comments</th>
+                                <th>View Count</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,6 +60,7 @@ $photos = Photo::findAllDescOrder();
                                     <td><?php echo "$photo->filename"; ?></td>
                                     <td><?php echo "$photo->size"; ?></td>
                                     <td><?php echo Comment::commentCount($photo->id); ?></td>
+                                    <td><?php echo $photo->view_count; ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

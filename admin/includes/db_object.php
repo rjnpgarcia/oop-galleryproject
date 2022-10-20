@@ -228,4 +228,12 @@ class Db_object
     {
         echo !empty($this->notification) ? $this->notification : "";
     }
+
+    // Data count
+    public static function dataCount()
+    {
+        $data = static::findAll();
+        $result = count($data);
+        return $result;
+    }
 }
