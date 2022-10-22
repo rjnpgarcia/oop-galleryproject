@@ -46,11 +46,13 @@ $photos = $pagination->findPhotosPaginate();
                         <?php
                         if ($pagination->pageTotal() > 1) {
 
+                            // for Previous Page Link
                             if ($pagination->hasPrevious()) {
                                 $previous = $pagination->previousPage();
                                 echo "<li class='previous'><a href='index.php?page=$previous'>Previous</a></li>";
                             }
 
+                            // for Page Number Links
                             for ($i = 1; $i <= $pagination->pageTotal(); $i++) {
                                 if ($i === $pagination->currentPage) {
                                     echo "<li class='active'><a href='index.php?page=$i'>$i</a></li>";
@@ -59,6 +61,7 @@ $photos = $pagination->findPhotosPaginate();
                                 }
                             }
 
+                            // for Next Page Link
                             if ($pagination->hasNext()) {
                                 $next = $pagination->nextPage();
                                 echo "<li class='next'><a href='index.php?page=$next'>Next</a></li>";
