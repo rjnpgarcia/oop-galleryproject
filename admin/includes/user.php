@@ -30,5 +30,10 @@ class User extends Db_object
     //     $image = $this->upload_directory . DS . $this->user_image;
     //     return empty($this->user_image) ? $placeholder : $image;
     // }
+
+    public function ajaxSaveUserImage($user_image, $user_id)
+    {
+        $this->user_image = $user_image;
+    }
 } //End of USER Class
 $user = new User();

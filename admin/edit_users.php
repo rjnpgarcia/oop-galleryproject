@@ -1,4 +1,6 @@
-<?php include("includes/header.php");
+<?php
+require_once("includes/header.php");
+require_once("includes/photo_modal.php");
 
 // Control access to ADMIN
 if (!$session->isLoggedIn()) {
@@ -52,7 +54,7 @@ if (isset($_POST['update_user'])) {
                 </h1>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="col-md-3 text-center">
-                        <img class="img-responsive img-thumbnail" src="<?php echo $user->picturePath(); ?>" alt="">
+                        <a href="#" data-toggle="modal" data-target="#photo-modal"><img class="img-responsive img-thumbnail" src="<?php echo $user->picturePath(); ?>" alt=""></a>
                     </div>
                     <div class="col-md-6">
                         <h5 class="text-success text-center"><?php $user->statusNotification(); ?></h5>
@@ -77,7 +79,7 @@ if (isset($_POST['update_user'])) {
                             <input type="password" name="password" placeholder="Create your password" class="form-control" value="<?php echo $user->password; ?>">
                         </div>
                         <div class="form-group">
-                            <a href="delete_users.php?id=<?php echo $user->id; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete USER?')">Delete</a>
+                            <a id="user-id" href="delete_users.php?id=<?php echo $user->id; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete USER?')">Delete</a>
                             <input type="submit" name="update_user" class="btn btn-primary pull-right" value="Update user">
                         </div>
                     </div>
@@ -89,6 +91,8 @@ if (isset($_POST['update_user'])) {
     <!-- /.container-fluid -->
 </div>
 <!-- /#page-wrapper -->
+
+
 
 
 

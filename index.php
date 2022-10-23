@@ -6,12 +6,19 @@ if (!isset($_GET['page'])) {
     redirect("index.php?page=1");
 }
 $page = !empty((int)$_GET['page']) ? (int)$_GET['page'] : 1;
-$itemsPerPage = 4;
+$itemsPerPage = 8;
 $itemsTotalCount = Photo::dataCount();
 
 
-// Read all photos
+// Pagination instantiation
 $pagination = new Pagination($page, $itemsPerPage, $itemsTotalCount);
+
+// Redirect if over page count
+if ((int)$_GET['page'] > $pagination->pageTotal()) {
+    redirect("index.php?page=1");
+}
+
+// Read all photos per page
 $photos = $pagination->findPhotosPaginate();
 
 ?>
