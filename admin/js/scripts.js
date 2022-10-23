@@ -13,7 +13,7 @@ $(document).ready(function () {
     user_href_split = user_href.split("=");
     user_id = user_href_split[user_href_split.length - 1];
 
-    image_src = $(this).prop("href");
+    image_src = $(this).prop("src");
     image_split = image_src.split("/");
     image_name = image_split[image_split.length - 1];
   });
@@ -24,9 +24,7 @@ $(document).ready(function () {
       data: { image_name: image_name, user_id: user_id },
       type: "POST",
       success: function (data) {
-        if (!data.error) {
-          alert(data);
-        }
+        location.reload(true);
       },
     });
   });
