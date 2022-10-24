@@ -15,6 +15,7 @@ $users = User::findById($database->escape($_GET['id']));
 if ($users) {
     $users->deletePhoto();
     $users->delete();
+    $session->message("$users->username successfully deleted!");
     redirect("admin_users.php");
 } else {
     redirect("admin_users.php");

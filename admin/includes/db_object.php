@@ -164,7 +164,7 @@ class Db_object
             $this->errors[] = "There was no file uploaded here";
             return false;
         } elseif ($file['error'] != 0) {
-            $this->error[] = $this->uploadErrorsArray[$file['error']];
+            $this->errors[] = $this->uploadErrorsArray[$file['error']];
             return false;
         } else {
             $this->filename = basename($file['name']);

@@ -31,6 +31,9 @@ $photos = Photo::findAllDescOrder();
                     Photos
                     <small>Subheading</small>
                 </h1>
+                <div>
+                    <p class="text-center bg-success"><?php echo $message; ?></p>
+                </div>
                 <div class="col-md-12">
                     <table class="table table-hover">
                         <thead>

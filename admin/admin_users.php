@@ -32,6 +32,9 @@ $users = User::findAllDescOrder();
                     <small>Subheading</small>
                 </h1>
                 <a href="add_users.php" class="btn btn-primary">Add User</a>
+                <div>
+                    <p class="bg-success text-center"><?php echo $message; ?></p>
+                </div>
                 <div class="col-md-12">
                     <table class="table table-hover">
                         <thead>

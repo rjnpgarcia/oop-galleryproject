@@ -1,6 +1,5 @@
 <?php
 require_once("includes/header.php");
-require_once("includes/photo_modal.php");
 
 // Control access to ADMIN
 if (!$session->isLoggedIn()) {
@@ -17,12 +16,14 @@ if (isset($_POST['update_user'])) {
         $user->password = $_POST['password'];
         if (empty($_FILES['filename'])) {
             $user->save();
-            $user->notification = "User successfully updated!";
+            $session->message("$user->username successfully updated!");
+            redirect("admin_users.php");
         } else {
             $user->set_file($_FILES['filename']);
             $user->saveDataPhoto();
             $user->save();
-            $user->notification = "User successfully updated!";
+            $session->message("$user->username successfully updated!");
+            redirect("admin_users.php");
         }
     }
 }
@@ -54,10 +55,9 @@ if (isset($_POST['update_user'])) {
                 </h1>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="col-md-3 text-center">
-                        <a href="#" data-toggle="modal" data-target="#photo-modal"><img class="img-responsive img-thumbnail" src="<?php echo $user->picturePath(); ?>" alt=""></a>
+                        <img class="img-responsive img-thumbnail" src="<?php echo $user->picturePath(); ?>" alt="">
                     </div>
                     <div class="col-md-6">
-                        <h5 class="text-success text-center"><?php $user->statusNotification(); ?></h5>
                         <div class="form-group">
                             <label for="">Profile Picture</label>
                             <input type="file" name="filename">
@@ -79,7 +79,7 @@ if (isset($_POST['update_user'])) {
                             <input type="password" name="password" placeholder="Create your password" class="form-control" value="<?php echo $user->password; ?>">
                         </div>
                         <div class="form-group">
-                            <a id="user-id" href="delete_users.php?id=<?php echo $user->id; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete USER?')">Delete</a>
+                            <a href="delete_users.php?id=<?php echo $user->id; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete USER?')">Delete</a>
                             <input type="submit" name="update_user" class="btn btn-primary pull-right" value="Update user">
                         </div>
                     </div>

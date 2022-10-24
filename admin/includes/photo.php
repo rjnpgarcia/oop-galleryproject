@@ -15,7 +15,6 @@ class Photo extends Db_object
     public $view_count;
     protected static $upload_directory = "images";
     protected $image_placeholder = "placeholder/placeholder1.png";
-    public $notification;
 
     // Photo view count
     public static function viewCounter($photo_id)

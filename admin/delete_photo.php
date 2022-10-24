@@ -14,6 +14,7 @@ if (empty($_GET['id'])) {
 $photos = Photo::findById($database->escape($_GET['id']));
 if ($photos) {
     $photos->deletePhoto();
+    $session->message("$photos->title successfully deleted!");
     redirect("admin_photos.php");
 } else {
     redirect("admin_photos.php");

@@ -20,7 +20,8 @@ if (empty($photo_id)) {
             $photo->description = $_POST['description'];
 
             $photo->save();
-            $photo->notification = "Updated Successfully!";
+            $session->message("$photo->title is successfully updated!");
+            redirect("admin_photos.php");
         }
     }
 }
@@ -78,7 +79,7 @@ if (empty($photo_id)) {
                     <div class="col-md-4">
                         <div class="photo-info-box">
                             <div class="info-box-header">
-                                <h4>Save <span id="toggle" class="glyphicon glyphicon-menu-up pull-right"></span></h4>
+                                <h4>Details <span id="toggle" class="glyphicon glyphicon-menu-up pull-right"></span></h4>
                             </div>
                             <div class="inside">
                                 <div class="box-inner">

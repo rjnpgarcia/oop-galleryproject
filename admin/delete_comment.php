@@ -14,6 +14,7 @@ $comment = Comment::findById($database->escape($_GET['id']));
 
 if ($comment) {
     $comment->delete();
+    $session->message("Comment successfully deleted!");
     redirect("admin_comments.php");
 } else {
     redirect("admin_comments.php");

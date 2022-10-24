@@ -13,7 +13,6 @@ class User extends Db_object
     public $filename;
     protected static $upload_directory = "images/user_images";
     protected $image_placeholder = "placeholder/placeholder1.png";
-    public $notification;
 
     // To verify user by username and password
     public static function verify_user($username, $password)
@@ -31,11 +30,5 @@ class User extends Db_object
     //     return empty($this->user_image) ? $placeholder : $image;
     // }
 
-    public function ajaxSaveUserImage($filename, $id)
-    {
-        $this->filename = $filename;
-        $this->id = $id;
-        $this->save();
-    }
 } //End of USER Class
 $user = new User();

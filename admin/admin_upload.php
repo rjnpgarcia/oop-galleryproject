@@ -7,14 +7,15 @@ if (!$session->isLoggedIn()) {
 
 // Uploading Files to Database and admin/images folder
 $photos = new Photo();
-$photos->notification = '';
 if (isset($_POST['upload'])) {
     $photos->title = $_POST['title'];
     $photos->set_file($_FILES['file_upload']);
+
     if ($photos->saveDataPhoto()) {
-        $photos->notification = "Photo uploaded succesfully";
+        $session->message("$photos->title successfully uploaded!");
+        redirect("admin_photos.php");
     } else {
-        $photos->notification = join("<br>", $photos->errors);
+        $session->message(join("<br>", $photos->errors));
     }
 }
 
@@ -39,21 +40,23 @@ if (isset($_POST['upload'])) {
                     Upload
                     <small>Subheading</small>
                 </h1>
-                <div class="col-md-6">
-                    <h5 class="<?php echo empty($photos->errors) ? 'text-success' : 'text-danger'; ?>"><?php echo $photos->statusNotification(); ?></h5>
-                    <form action="" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="">Title</label>
-                            <input type="text" name="title" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Upload Picture</label>
-                            <input type="file" name="file_upload">
-                        </div>
-                        <div>
-                            <input type="submit" name="upload" value="Upload" class="btn btn-info">
-                        </div>
-                    </form>
+                <p class="text-center bg-danger"><?php echo $message; ?></p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="">Title</label>
+                                <input type="text" name="title" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Upload Picture</label>
+                                <input type="file" name="file_upload">
+                            </div>
+                            <div>
+                                <input type="submit" name="upload" value="Upload" class="btn btn-info">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

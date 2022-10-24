@@ -18,7 +18,7 @@ class Session
     }
 
     // Feedback Message
-    public function message($msg)
+    public function message($msg = "")
     {
         if (!empty($msg)) {
             $_SESSION['message'] = $msg;
@@ -84,3 +84,4 @@ class Session
 }
 
 $session = new Session();
+$message = $session->message();

@@ -35,6 +35,7 @@ $comments = Comment::findComments($database->escape($_GET['id']));
                     Comments
                     <small>Subheading</small>
                 </h1>
+                <p class="text-center bg-success"><?php echo $message; ?></p>
                 <div class="col-md-12">
                     <table class="table table-hover">
                         <thead>
